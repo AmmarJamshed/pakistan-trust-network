@@ -68,7 +68,7 @@ export default function DocsPage() {
 
         <div className="flex flex-wrap gap-3">
           <a
-            href="https://github.com/ptn-network/ptn"
+            href="https://github.com/AmmarJamshed/pakistan-trust-network"
             target="_blank"
             rel="noreferrer"
             className="btn-outline"

@@ -46,6 +46,15 @@ class Settings(BaseSettings):
     admin_email: str = Field(default="admin@ptn.demo", alias="ADMIN_EMAIL")
     admin_password: str = Field(default="AdminPass123!", alias="ADMIN_PASSWORD")
 
+    ptn_network_enabled: bool = Field(default=False, alias="PTN_NETWORK_ENABLED")
+    ptn_network_git_url: str = Field(
+        default="https://github.com/AmmarJamshed/pakistan-trust-network.git",
+        alias="PTN_NETWORK_GIT_URL",
+    )
+    ptn_network_git_branch: str = Field(default="main", alias="PTN_NETWORK_GIT_BRANCH")
+    ptn_network_git_token: str = Field(default="", alias="PTN_NETWORK_GIT_TOKEN")
+    ptn_network_sync_seconds: int = Field(default=60, alias="PTN_NETWORK_SYNC_SECONDS")
+
     @property
     def cors_origins_list(self) -> List[str]:
         return [o.strip() for o in self.ptn_cors_origins.split(",") if o.strip()]

@@ -14,6 +14,8 @@ from app.security.crypto import canonical_json, merkle_root, sha256_hex
 
 
 GENESIS_PREV_HASH = "0" * 64
+# Shared by every local node so Git-synced blocks link to the same genesis.
+CANONICAL_GENESIS_TIME = datetime(2026, 8, 16, 0, 0, 0, tzinfo=timezone.utc)
 
 
 def _tx_id() -> str:
@@ -61,7 +63,7 @@ class LedgerService:
         if existing:
             return existing
 
-        ts = _utcnow()
+        ts = CANONICAL_GENESIS_TIME
         merkle = merkle_root([])
         block_hash = compute_block_hash(
             0, ts, GENESIS_PREV_HASH, merkle, settings.ledger_validator_id, []
@@ -225,6 +227,112 @@ class LedgerService:
             "block_count": len(blocks),
             "errors": errors,
             "message": "Chain integrity verified" if not errors else "Tampering detected",
+        }
+
+    def get_unattached_transactions(self) -> list[LedgerTransaction]:
+        return list(
+            self.db.scalars(
+                select(LedgerTransaction).where(LedgerTransaction.block_id.is_(None))
+            ).all()
+        )
+
+    def delete_blocks_from(self, index: int) -> list[str]:
+        """Drop local blocks at and after index. Transactions are detached, not deleted."""
+        blocks = list(
+            self.db.scalars(select(LedgerBlock).where(LedgerBlock.index >= index)).all()
+        )
+        dropped = [b.block_hash for b in blocks]
+        for block in blocks:
+            txs = list(
+                self.db.scalars(
+                    select(LedgerTransaction).where(LedgerTransaction.block_id == block.id)
+                ).all()
+            )
+            for tx in txs:
+                tx.block_id = None
+                tx.block_index = None
+            self.db.delete(block)
+        self.db.flush()
+        return dropped
+
+    def import_block(self, payload: dict[str, Any]) -> LedgerBlock:
+        existing = self.get_block(int(payload["index"]))
+        if existing:
+            return existing
+        ts = datetime.fromisoformat(payload["timestamp"])
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=timezone.utc)
+        block = LedgerBlock(
+            index=int(payload["index"]),
+            timestamp=ts,
+            previous_hash=payload["previous_hash"],
+            merkle_root=payload["merkle_root"],
+            validator=payload["validator"],
+            block_hash=payload["block_hash"],
+            transaction_count=int(payload.get("transaction_count") or len(payload.get("transactions") or [])),
+        )
+        self.db.add(block)
+        self.db.flush()
+        for txp in payload.get("transactions") or []:
+            self.import_transaction(txp, block)
+        self.db.flush()
+        return block
+
+    def import_transaction(self, payload: dict[str, Any], block: LedgerBlock | None) -> LedgerTransaction:
+        existing = self.get_transaction(payload["transaction_id"])
+        if existing:
+            if block and existing.block_id is None:
+                existing.block_id = block.id
+                existing.block_index = block.index
+            return existing
+        ts = datetime.fromisoformat(payload["timestamp"])
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=timezone.utc)
+        tx = LedgerTransaction(
+            transaction_id=payload["transaction_id"],
+            transaction_type=payload["transaction_type"],
+            issuer_id=payload.get("issuer_id"),
+            credential_id=payload.get("credential_id"),
+            credential_hash=payload.get("credential_hash"),
+            timestamp=ts,
+            digital_signature=payload.get("digital_signature"),
+            metadata_hash=payload.get("metadata_hash"),
+            payload=payload.get("payload") or {},
+            block_id=block.id if block else None,
+            block_index=block.index if block else None,
+        )
+        self.db.add(tx)
+        self.db.flush()
+        return tx
+
+    def export_block(self, block: LedgerBlock) -> dict[str, Any]:
+        txs = list(
+            self.db.scalars(
+                select(LedgerTransaction).where(LedgerTransaction.block_id == block.id)
+            ).all()
+        )
+        return {
+            "index": block.index,
+            "timestamp": _iso(block.timestamp),
+            "previous_hash": block.previous_hash,
+            "merkle_root": block.merkle_root,
+            "validator": block.validator,
+            "block_hash": block.block_hash,
+            "transaction_count": block.transaction_count,
+            "transactions": [
+                {
+                    "transaction_id": t.transaction_id,
+                    "transaction_type": t.transaction_type,
+                    "issuer_id": t.issuer_id,
+                    "credential_id": t.credential_id,
+                    "credential_hash": t.credential_hash,
+                    "timestamp": _iso(t.timestamp),
+                    "digital_signature": t.digital_signature,
+                    "metadata_hash": t.metadata_hash,
+                    "payload": t.payload or {},
+                }
+                for t in txs
+            ],
         }
 
     def get_block(self, height: int) -> LedgerBlock | None:

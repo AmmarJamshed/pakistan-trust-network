@@ -67,12 +67,14 @@ More detail: [docs/architecture.md](docs/architecture.md) · [docs/blockchain.md
 Anyone can run the same stack — no local Python/Node install required:
 
 ```bash
-git clone https://github.com/YOUR_ORG/ptn.git
-cd ptn
+git clone https://github.com/AmmarJamshed/pakistan-trust-network.git
+cd pakistan-trust-network
 docker compose up --build
 ```
 
 Then open **http://localhost:3000**
+
+On Windows without Docker, double-click **`join-network.bat`**. That uses Git Bash to pull the shared hub, then starts localhost (website at http://localhost:3001). Public ledger proofs live in `network/ledger/` and sync through GitHub — see [docs/network.md](docs/network.md).
 
 | Service   | URL                                      |
 |-----------|------------------------------------------|
@@ -131,6 +133,7 @@ Suggested tour:
 | Document | Description |
 |----------|-------------|
 | [Self-host / Docker](docs/self-host.md) | Run locally, share on LAN, or host a public demo |
+| [Git localhost mesh](docs/network.md) | Download, run on localhost, sync proofs via GitHub |
 | [Architecture](docs/architecture.md) | System design, flows, Mermaid diagrams |
 | [Blockchain / ledger](docs/blockchain.md) | Permissioned ledger, blocks, `verify_chain` |
 | [Credentials](docs/credentials.md) | VC-inspired model, types, signing |

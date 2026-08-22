@@ -1,0 +1,7 @@
+{
+  "format": "ptn-network-v1",
+  "note": "Public proofs only. No private keys, passwords, or private credential subjects.",
+  "blocks": [],
+  "identities": [],
+  "credentials": []
+}

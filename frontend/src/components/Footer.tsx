@@ -53,7 +53,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/ptn-network/ptn"
+                  href="https://github.com/AmmarJamshed/pakistan-trust-network"
                   className="hover:text-navy"
                   target="_blank"
                   rel="noreferrer"

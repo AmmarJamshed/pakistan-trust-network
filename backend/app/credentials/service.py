@@ -18,6 +18,7 @@ from app.database.models import (
     User,
 )
 from app.ledger.service import LedgerService
+from app.network.constants import NETWORK_REPLICA_SENTINEL
 from app.security.crypto import (
     canonical_json,
     decrypt_private_key,
@@ -32,6 +33,15 @@ DEFAULT_PUBLIC_FIELDS = ["title", "type", "issuer_name", "issued_at", "status"]
 
 def _credential_id() -> str:
     return f"ptn:cred:{secrets.token_hex(12)}"
+
+
+def _signing_key(identity: Identity) -> str:
+    private_key = decrypt_private_key(identity.encrypted_private_key)
+    if private_key == NETWORK_REPLICA_SENTINEL:
+        raise ValueError(
+            "This organization was replicated from the Git network and has no local signing key"
+        )
+    return private_key
 
 
 class CredentialService:
@@ -109,7 +119,7 @@ class CredentialService:
             {"title": title, "type": type_code, "issuer_name": organization.name}
         )
 
-        private_key = decrypt_private_key(identity.encrypted_private_key)
+        private_key = _signing_key(identity)
         message = self._signing_message(credential_hash, organization.did, cred_id)
         signature = sign_ed25519(message, private_key)
 
@@ -176,13 +186,12 @@ class CredentialService:
             raise ValueError("Organization has no cryptographic identity")
 
         credential.status = CredentialStatus.REVOKED
-        private_key = decrypt_private_key(identity.encrypted_private_key)
+        private_key = _signing_key(identity)
         revoke_payload = {
             "action": "REVOKE",
             "credential_id": credential.credential_id,
             "credential_hash": credential.credential_hash,
         }
-        from app.security.crypto import hash_credential_payload
 
         meta_hash = hash_credential_payload(revoke_payload)
         message = canonical_json(revoke_payload)

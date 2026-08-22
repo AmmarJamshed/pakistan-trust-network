@@ -14,6 +14,7 @@ from app.api.v1 import api_router
 from app.config import settings
 from app.database.session import SessionLocal
 from app.ledger.service import LedgerService
+from app.network.sync import start_background_sync
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -40,6 +41,7 @@ async def lifespan(app: FastAPI):
         db.commit()
     finally:
         db.close()
+    start_background_sync()
     yield
 
 

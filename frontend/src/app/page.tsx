@@ -62,8 +62,11 @@ export default function LandingPage() {
             <Link href="/verify/demo" className="btn border border-white/30 text-white hover:bg-white/10">
               Verify a Credential
             </Link>
+            <Link href="/run" className="btn border border-white/30 text-white hover:bg-white/10">
+              Download & run locally
+            </Link>
             <a
-              href="https://github.com/ptn-network/ptn"
+              href="https://github.com/AmmarJamshed/pakistan-trust-network"
               target="_blank"
               rel="noreferrer"
               className="btn border border-white/30 text-white hover:bg-white/10"
@@ -230,6 +233,26 @@ curl -X POST "$API/api/credentials" \\
               Manage CV
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Run locally */}
+      <section className="border-y border-slate-200 bg-white py-16 sm:py-20">
+        <div className="container-ptn">
+          <h2 className="section-title">Run it yourself</h2>
+          <p className="mt-4 max-w-3xl text-navy-400 leading-relaxed">
+            There is no required cloud VPS. Each person downloads PTN, runs it on{" "}
+            <strong className="font-medium text-navy">localhost</strong>, and Git Bash in the
+            backend keeps public ledger proofs in sync through one GitHub repo.
+          </p>
+          <pre className="mt-6 overflow-x-auto rounded-lg border border-slate-200 bg-navy p-5 text-sm text-slate-200">
+            <code>{`git clone https://github.com/AmmarJamshed/pakistan-trust-network.git
+cd pakistan-trust-network
+join-network.bat`}</code>
+          </pre>
+          <Link href="/run" className="btn-primary mt-6">
+            Download instructions
+          </Link>
         </div>
       </section>
 

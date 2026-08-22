@@ -373,6 +373,24 @@ export const api = {
 
   stats: () => request<Stats>("/api/stats"),
 
+  network: {
+    status: () =>
+      request<{
+        enabled: boolean;
+        repo_root: string | null;
+        git_bash: string | null;
+        remote: string;
+        branch: string;
+        can_push: boolean;
+        interval_seconds: number;
+        last_sync: string | null;
+        last_error: string | null;
+        last_result: Record<string, unknown> | null;
+        running: boolean;
+      }>("/api/network/status"),
+    sync: () => request<Record<string, unknown>>("/api/network/sync", { method: "POST" }),
+  },
+
   admin: {
     overview: () =>
       request<{

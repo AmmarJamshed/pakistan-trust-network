@@ -14,7 +14,7 @@ Docker Compose covers both. It is **not** a cryptocurrency network — each depl
 Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows/macOS) or Docker Engine + Compose (Linux).
 
 ```bash
-git clone https://github.com/YOUR_ORG/ptn.git
+git clone https://github.com/AmmarJamshed/pakistan-trust-network.git
 cd ptn
 docker compose up --build
 ```
@@ -69,7 +69,7 @@ Use a small always-on VPS (Hetzner, DigitalOcean, Linode, Oracle free tier, etc.
 
 ```bash
 # on the VPS
-git clone https://github.com/YOUR_ORG/ptn.git
+git clone https://github.com/AmmarJamshed/pakistan-trust-network.git
 cd ptn
 docker compose --profile public up --build -d
 ```

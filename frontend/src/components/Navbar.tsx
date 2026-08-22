@@ -6,6 +6,7 @@ import { getCurrentUser, logout } from "@/lib/auth";
 import type { User } from "@/lib/api";
 
 const links = [
+  { href: "/run", label: "Run locally" },
   { href: "/explorer", label: "Explorer" },
   { href: "/verify/demo", label: "Verify" },
   { href: "/docs", label: "Docs" },
