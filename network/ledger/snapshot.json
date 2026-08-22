@@ -1,7 +1,326 @@
 {
   "format": "ptn-network-v1",
-  "note": "Public proofs only. No private keys, passwords, or private credential subjects.",
-  "blocks": [],
-  "identities": [],
-  "credentials": []
+  "exported_at": "2026-08-22T18:03:04.779368+00:00",
+  "note": "Public proofs only. No private keys, passwords, emails, or private credential subjects.",
+  "blocks": [
+    {
+      "index": 0,
+      "timestamp": "2026-08-16T13:38:12.577536+00:00",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "merkle_root": "2e1cfa82b035c26cbbbdae632cea070514eb8b773f616aaeaf668e2f0be8f10d",
+      "validator": "ptn:validator:genesis",
+      "block_hash": "df938bcc36adb8f1459c34426fc5191374b8808f9afdb018b044fb8b32301c32",
+      "transaction_count": 0,
+      "transactions": []
+    },
+    {
+      "index": 1,
+      "timestamp": "2026-08-16T13:38:12.860785+00:00",
+      "previous_hash": "df938bcc36adb8f1459c34426fc5191374b8808f9afdb018b044fb8b32301c32",
+      "merkle_root": "ef1aae2050f23e88c6ded94865c54222ac06ead7cee7c1c8e9934846e64fbe38",
+      "validator": "ptn:validator:genesis",
+      "block_hash": "a0eeb3286c78fc59d2eca7a2c141eef53f1a896c97b85816b4b80abdc15986a1",
+      "transaction_count": 1,
+      "transactions": [
+        {
+          "transaction_id": "PTN-TX-463DF5FC4667A43A",
+          "transaction_type": "CREDENTIAL_ISSUED",
+          "issuer_id": "ptn:org:ce02bfbb7feacbd6",
+          "credential_id": "ptn:cred:f5bdb3c5dda15c58256087dd",
+          "credential_hash": "c4292fe4fe46cb74dcd7d099ac62d6d802aed4499433c538e8e2b154f6535bb6",
+          "timestamp": "2026-08-16T13:38:12.860785+00:00",
+          "digital_signature": "0w1GyX+wiaeKnMkcql+YS+KYrEb41eO0qqJfcNPE58N9wCSk9W5zjA8H/CXha49xkHGu5YJ9cujmAgL00sZBAg==",
+          "metadata_hash": "0a57c9b4be094f495c0470536f80418f1479a3b26146b68f8277df90a5eb738d",
+          "payload": {
+            "type": "UniversityDegree",
+            "issuer_name": "PTN Demo University",
+            "holder_did": "ptn:user:c886940d225c40c8"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "timestamp": "2026-08-16T13:38:12.860785+00:00",
+      "previous_hash": "a0eeb3286c78fc59d2eca7a2c141eef53f1a896c97b85816b4b80abdc15986a1",
+      "merkle_root": "55241608c0c42475f7f8321b7f67fcaa87ab3e1d6a42698f2a54049aa4711f5f",
+      "validator": "ptn:validator:genesis",
+      "block_hash": "19aab1ec124278da034aa0555026ef8f94606334ff804bdefdf029c128c4f737",
+      "transaction_count": 1,
+      "transactions": [
+        {
+          "transaction_id": "PTN-TX-DA5BE051357D5912",
+          "transaction_type": "CREDENTIAL_ISSUED",
+          "issuer_id": "ptn:org:df96bcde6df93488",
+          "credential_id": "ptn:cred:c77a2b7ed2dba0f2480994b8",
+          "credential_hash": "be89a65a97dc18c5cb615768cf0fc28ae59fa21be33ba88422b8ed0b1c6eee3e",
+          "timestamp": "2026-08-16T13:38:12.860785+00:00",
+          "digital_signature": "aNwuAhhlV8/rhgcCFcjBa/1xn5QjigAFGkuyUOn+YZZWNgoULCriDS3oBuxGliR6rcmAT4iKyZH/8XH1YGn0Cg==",
+          "metadata_hash": "16ff5e3bc03bdd8fed63d6d83638771a69953df47e99245090179b53fe5e44d6",
+          "payload": {
+            "type": "Employment",
+            "issuer_name": "PTN Demo Employer",
+            "holder_did": "ptn:user:c886940d225c40c8"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "timestamp": "2026-08-16T13:38:12.860785+00:00",
+      "previous_hash": "19aab1ec124278da034aa0555026ef8f94606334ff804bdefdf029c128c4f737",
+      "merkle_root": "6ff05fc8ce32e11ff66f0189b2ad23be7c692a24ff956cc4688166927e45a45b",
+      "validator": "ptn:validator:genesis",
+      "block_hash": "38b31a4e3cc1752090594a195e0e96e0d1cc7e2f640ba8db7701f4fdbbfbef42",
+      "transaction_count": 1,
+      "transactions": [
+        {
+          "transaction_id": "PTN-TX-88DF632EE7B68CCA",
+          "transaction_type": "CREDENTIAL_ISSUED",
+          "issuer_id": "ptn:org:49f8b6ca8d582f95",
+          "credential_id": "ptn:cred:0dd143e44e4312593a25d171",
+          "credential_hash": "249ea73d6dd193b182a120bd250826cbd24d8d19f80abedc1588db7426928488",
+          "timestamp": "2026-08-16T13:38:12.860785+00:00",
+          "digital_signature": "kH6xePRjMYIdOrw5FeFx100tDbKvJtx095OI5R5NbiCVpvsBkfnVbDd48tU6Kj6MK5GIwrEzVv3mwUdCQl9oAA==",
+          "metadata_hash": "2bc841da4939ca31defe438d9d8c9b0eec7e20f4da48965883859f3558a9a2ab",
+          "payload": {
+            "type": "ProfessionalCertification",
+            "issuer_name": "PTN Demo Training Institute",
+            "holder_did": "ptn:user:c886940d225c40c8"
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "timestamp": "2026-08-16T13:38:12.876601+00:00",
+      "previous_hash": "38b31a4e3cc1752090594a195e0e96e0d1cc7e2f640ba8db7701f4fdbbfbef42",
+      "merkle_root": "f70fe406bb42ee07f935bb99e6a59b7168d3e8b564bf280293104e8d49b5e359",
+      "validator": "ptn:validator:genesis",
+      "block_hash": "afe5e96ea32cee25eb4676512ef8fbe6bf51c4af2bfe465cf391368cd9826a4a",
+      "transaction_count": 1,
+      "transactions": [
+        {
+          "transaction_id": "PTN-TX-EEDA1D97288311E2",
+          "transaction_type": "CREDENTIAL_ISSUED",
+          "issuer_id": "ptn:org:49f8b6ca8d582f95",
+          "credential_id": "ptn:cred:57fec0f3b74d2693a9b970de",
+          "credential_hash": "4842e2d2fc45dbc6f072e37232875c1ead9cff403a579a3bdaf3dd5b963188c6",
+          "timestamp": "2026-08-16T13:38:12.876601+00:00",
+          "digital_signature": "7rDhF+DcDmrX/BVtCLbzVBHK1MsN9NgnJs4SoodYQRhaKn2wBxaPrRKwCpM6Y7Y2xcM3Tcy9G2JPfDzelGJ2Cw==",
+          "metadata_hash": "614b20d72aa37e133d58d6578c89b7394a385e5b50e8323daf74ce40a6f001b7",
+          "payload": {
+            "type": "SkillEvidence",
+            "issuer_name": "PTN Demo Training Institute",
+            "holder_did": "ptn:user:c886940d225c40c8"
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "timestamp": "2026-08-16T13:38:12.878768+00:00",
+      "previous_hash": "afe5e96ea32cee25eb4676512ef8fbe6bf51c4af2bfe465cf391368cd9826a4a",
+      "merkle_root": "c839bde7b7c5bce1c085ff5684ec3ba362a3552a4945e0cc767c01d03658c1ff",
+      "validator": "ptn:validator:genesis",
+      "block_hash": "7b91bc9314e58e641bdc006731852f0ffdcdf611755a211aa156c33f57e57dbb",
+      "transaction_count": 1,
+      "transactions": [
+        {
+          "transaction_id": "PTN-TX-5710C8AB25FEB3E3",
+          "transaction_type": "CREDENTIAL_ISSUED",
+          "issuer_id": "ptn:org:49f8b6ca8d582f95",
+          "credential_id": "ptn:cred:240abb494163d211a0c1d1e3",
+          "credential_hash": "514e29877025eb81cb68e2a5251a157698a07946465f3b4c7ccaa17e1eeb08bd",
+          "timestamp": "2026-08-16T13:38:12.878768+00:00",
+          "digital_signature": "lcJ8Gzhu2K3CbYnU1J7YCuakf/0NEVcY2Dp4sqe0mFNgWYPqt32xsSKsAmOcLbTRbVoTlz/jFEDRpH43FIBwDA==",
+          "metadata_hash": "d0b482e2b79ac6e55d37874bb47a0ed9b345401cc97a7d7ce42a49e406e98f89",
+          "payload": {
+            "type": "SkillEvidence",
+            "issuer_name": "PTN Demo Training Institute",
+            "holder_did": "ptn:user:c886940d225c40c8"
+          }
+        }
+      ]
+    }
+  ],
+  "identities": [
+    {
+      "did": "ptn:org:ce02bfbb7feacbd6",
+      "name": "PTN Demo University",
+      "org_type": "UNIVERSITY",
+      "country": "Pakistan",
+      "status": "VERIFIED",
+      "is_demo": true,
+      "demo_label": "DEMO — NOT AN ACTUAL VERIFIED INSTITUTION",
+      "issuer_id": "ptn:org:ce02bfbb7feacbd6",
+      "public_key": "/R5BzS6ETNwkHTUqO2//I8psdvsGu6ekc0hQ/vkilvQ=",
+      "key_algorithm": "Ed25519",
+      "identity_status": "ACTIVE"
+    },
+    {
+      "did": "ptn:org:df96bcde6df93488",
+      "name": "PTN Demo Employer",
+      "org_type": "EMPLOYER",
+      "country": "Pakistan",
+      "status": "VERIFIED",
+      "is_demo": true,
+      "demo_label": "DEMO — NOT AN ACTUAL VERIFIED INSTITUTION",
+      "issuer_id": "ptn:org:df96bcde6df93488",
+      "public_key": "2GuiITIVhgL4r06BUSi6E2CJyAE7tesG2/uCATo+54o=",
+      "key_algorithm": "Ed25519",
+      "identity_status": "ACTIVE"
+    },
+    {
+      "did": "ptn:org:49f8b6ca8d582f95",
+      "name": "PTN Demo Training Institute",
+      "org_type": "TRAINING_PROVIDER",
+      "country": "Pakistan",
+      "status": "VERIFIED",
+      "is_demo": true,
+      "demo_label": "DEMO — NOT AN ACTUAL VERIFIED INSTITUTION",
+      "issuer_id": "ptn:org:49f8b6ca8d582f95",
+      "public_key": "UY/e5bcRDRxv4DQoiuoWS9bx5O2PErrAz8rlEX51PaE=",
+      "key_algorithm": "Ed25519",
+      "identity_status": "ACTIVE"
+    }
+  ],
+  "credentials": [
+    {
+      "credential_id": "ptn:cred:f5bdb3c5dda15c58256087dd",
+      "type_code": "UniversityDegree",
+      "title": "BS Computer Science",
+      "issuer_did": "ptn:org:ce02bfbb7feacbd6",
+      "holder_did": "ptn:user:c886940d225c40c8",
+      "holder_display": "Demo S.",
+      "issued_at": "2026-08-16T13:38:12.860785+00:00",
+      "credential_hash": "c4292fe4fe46cb74dcd7d099ac62d6d802aed4499433c538e8e2b154f6535bb6",
+      "signature": "0w1GyX+wiaeKnMkcql+YS+KYrEb41eO0qqJfcNPE58N9wCSk9W5zjA8H/CXha49xkHGu5YJ9cujmAgL00sZBAg==",
+      "proof_type": "Ed25519Signature",
+      "status": "ACTIVE",
+      "public_fields": [
+        "title",
+        "type",
+        "issuer_name",
+        "issued_at",
+        "status"
+      ],
+      "public_subject": {
+        "degree": "BS Computer Science",
+        "program": "Bachelor of Science"
+      },
+      "ledger_tx_id": "PTN-TX-463DF5FC4667A43A",
+      "metadata_hash": "0a57c9b4be094f495c0470536f80418f1479a3b26146b68f8277df90a5eb738d",
+      "is_demo": true,
+      "revocation": null
+    },
+    {
+      "credential_id": "ptn:cred:c77a2b7ed2dba0f2480994b8",
+      "type_code": "Employment",
+      "title": "Software Engineer",
+      "issuer_did": "ptn:org:df96bcde6df93488",
+      "holder_did": "ptn:user:c886940d225c40c8",
+      "holder_display": "Demo S.",
+      "issued_at": "2026-08-16T13:38:12.860785+00:00",
+      "credential_hash": "be89a65a97dc18c5cb615768cf0fc28ae59fa21be33ba88422b8ed0b1c6eee3e",
+      "signature": "aNwuAhhlV8/rhgcCFcjBa/1xn5QjigAFGkuyUOn+YZZWNgoULCriDS3oBuxGliR6rcmAT4iKyZH/8XH1YGn0Cg==",
+      "proof_type": "Ed25519Signature",
+      "status": "ACTIVE",
+      "public_fields": [
+        "title",
+        "type",
+        "issuer_name",
+        "issued_at",
+        "status"
+      ],
+      "public_subject": {
+        "role": "Software Engineer"
+      },
+      "ledger_tx_id": "PTN-TX-DA5BE051357D5912",
+      "metadata_hash": "16ff5e3bc03bdd8fed63d6d83638771a69953df47e99245090179b53fe5e44d6",
+      "is_demo": true,
+      "revocation": null
+    },
+    {
+      "credential_id": "ptn:cred:0dd143e44e4312593a25d171",
+      "type_code": "ProfessionalCertification",
+      "title": "Blockchain Fundamentals",
+      "issuer_did": "ptn:org:49f8b6ca8d582f95",
+      "holder_did": "ptn:user:c886940d225c40c8",
+      "holder_display": "Demo S.",
+      "issued_at": "2026-08-16T13:38:12.860785+00:00",
+      "credential_hash": "249ea73d6dd193b182a120bd250826cbd24d8d19f80abedc1588db7426928488",
+      "signature": "kH6xePRjMYIdOrw5FeFx100tDbKvJtx095OI5R5NbiCVpvsBkfnVbDd48tU6Kj6MK5GIwrEzVv3mwUdCQl9oAA==",
+      "proof_type": "Ed25519Signature",
+      "status": "ACTIVE",
+      "public_fields": [
+        "title",
+        "type",
+        "issuer_name",
+        "issued_at",
+        "status"
+      ],
+      "public_subject": {
+        "certification": "Blockchain Fundamentals"
+      },
+      "ledger_tx_id": "PTN-TX-88DF632EE7B68CCA",
+      "metadata_hash": "2bc841da4939ca31defe438d9d8c9b0eec7e20f4da48965883859f3558a9a2ab",
+      "is_demo": true,
+      "revocation": null
+    },
+    {
+      "credential_id": "ptn:cred:57fec0f3b74d2693a9b970de",
+      "type_code": "SkillEvidence",
+      "title": "Python",
+      "issuer_did": "ptn:org:49f8b6ca8d582f95",
+      "holder_did": "ptn:user:c886940d225c40c8",
+      "holder_display": "Demo S.",
+      "issued_at": "2026-08-16T13:38:12.875911+00:00",
+      "credential_hash": "4842e2d2fc45dbc6f072e37232875c1ead9cff403a579a3bdaf3dd5b963188c6",
+      "signature": "7rDhF+DcDmrX/BVtCLbzVBHK1MsN9NgnJs4SoodYQRhaKn2wBxaPrRKwCpM6Y7Y2xcM3Tcy9G2JPfDzelGJ2Cw==",
+      "proof_type": "Ed25519Signature",
+      "status": "ACTIVE",
+      "public_fields": [
+        "title",
+        "type",
+        "issuer_name",
+        "issued_at",
+        "status"
+      ],
+      "public_subject": {
+        "skill": "Python"
+      },
+      "ledger_tx_id": "PTN-TX-EEDA1D97288311E2",
+      "metadata_hash": "614b20d72aa37e133d58d6578c89b7394a385e5b50e8323daf74ce40a6f001b7",
+      "is_demo": true,
+      "revocation": null
+    },
+    {
+      "credential_id": "ptn:cred:240abb494163d211a0c1d1e3",
+      "type_code": "SkillEvidence",
+      "title": "Machine Learning",
+      "issuer_did": "ptn:org:49f8b6ca8d582f95",
+      "holder_did": "ptn:user:c886940d225c40c8",
+      "holder_display": "Demo S.",
+      "issued_at": "2026-08-16T13:38:12.878768+00:00",
+      "credential_hash": "514e29877025eb81cb68e2a5251a157698a07946465f3b4c7ccaa17e1eeb08bd",
+      "signature": "lcJ8Gzhu2K3CbYnU1J7YCuakf/0NEVcY2Dp4sqe0mFNgWYPqt32xsSKsAmOcLbTRbVoTlz/jFEDRpH43FIBwDA==",
+      "proof_type": "Ed25519Signature",
+      "status": "ACTIVE",
+      "public_fields": [
+        "title",
+        "type",
+        "issuer_name",
+        "issued_at",
+        "status"
+      ],
+      "public_subject": {
+        "skill": "Machine Learning"
+      },
+      "ledger_tx_id": "PTN-TX-5710C8AB25FEB3E3",
+      "metadata_hash": "d0b482e2b79ac6e55d37874bb47a0ed9b345401cc97a7d7ce42a49e406e98f89",
+      "is_demo": true,
+      "revocation": null
+    }
+  ]
 }

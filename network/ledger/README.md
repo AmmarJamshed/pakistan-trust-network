@@ -1,7 +1,5 @@
 # PTN public ledger snapshot
 
-Shared access point for localhost nodes. The backend Git Bash loop pulls and pushes this folder.
+This folder is the shared access point for localhost nodes.
 
-**Proof on-chain / Git:** hashes, signatures, issuer DIDs, public credential titles.
-
-**Never commit:** private keys, passwords, CNICs, private documents.
+Contains cryptographic proofs only: hashes, signatures, issuer DIDs, public credential titles. No private keys, passwords, CNICs, or private documents.
