@@ -1,0 +1,158 @@
+# Pakistan Trust Network — one-command stack
+#
+# Contributors / local:
+#   docker compose up --build
+#   open http://localhost:3000
+#
+# Share on your LAN (phones, other laptops):
+#   open http://YOUR_LAN_IP:3000
+#
+# Public 24/7 on a VPS (HTTP on port 80):
+#   docker compose --profile public up --build -d
+#
+# Optional extra validator processes:
+#   docker compose --profile multi-node up --build
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ptn
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ptn_dev_password}
+      POSTGRES_DB: ptn
+    ports:
+      - "5432:5432"
+    volumes:
+      - ptn_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ptn -d ptn"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://ptn:${POSTGRES_PASSWORD:-ptn_dev_password}@db:5432/ptn
+      PTN_ENV: ${PTN_ENV:-development}
+      PTN_DEBUG: ${PTN_DEBUG:-true}
+      PTN_API_URL: ${PTN_API_URL:-http://localhost:3000}
+      PTN_FRONTEND_URL: ${PTN_FRONTEND_URL:-http://localhost:3000}
+      PTN_CORS_ORIGINS: ${PTN_CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-a-long-random-secret-at-least-32-chars}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-only-fernet-key-not-for-prod!!}
+      LEDGER_NODE_NAME: ptn-node-primary
+      LEDGER_VALIDATOR_ID: ${LEDGER_VALIDATOR_ID:-ptn:validator:genesis}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-true}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-DemoPass123!}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@ptn.demo}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-AdminPass123!}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    command: >
+      sh -c "python -m scripts.seed &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: same-origin
+        API_INTERNAL_URL: http://backend:8000
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  # Optional public gateway — one URL on port 80 for LAN / VPS visitors
+  caddy:
+    image: caddy:2-alpine
+    profiles: ["public"]
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - backend
+
+  ptn-node-university:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    profiles: ["multi-node"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://ptn:${POSTGRES_PASSWORD:-ptn_dev_password}@db:5432/ptn
+      LEDGER_NODE_NAME: ptn-node-university
+      LEDGER_VALIDATOR_ID: ptn:validator:university
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-a-long-random-secret-at-least-32-chars}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-only-fernet-key-not-for-prod!!}
+      PTN_CORS_ORIGINS: ${PTN_CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8001:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ptn-node-employer:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    profiles: ["multi-node"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://ptn:${POSTGRES_PASSWORD:-ptn_dev_password}@db:5432/ptn
+      LEDGER_NODE_NAME: ptn-node-employer
+      LEDGER_VALIDATOR_ID: ptn:validator:employer
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-a-long-random-secret-at-least-32-chars}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-only-fernet-key-not-for-prod!!}
+      PTN_CORS_ORIGINS: ${PTN_CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8002:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ptn-node-training:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    profiles: ["multi-node"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://ptn:${POSTGRES_PASSWORD:-ptn_dev_password}@db:5432/ptn
+      LEDGER_NODE_NAME: ptn-node-training
+      LEDGER_VALIDATOR_ID: ptn:validator:training
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-a-long-random-secret-at-least-32-chars}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-only-fernet-key-not-for-prod!!}
+      PTN_CORS_ORIGINS: ${PTN_CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8003:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  ptn_pgdata:
+  caddy_data:
+  caddy_config:

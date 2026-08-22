@@ -1,0 +1,22 @@
+# Single public entrypoint for PTN.
+# Use with: docker compose --profile public up --build
+#
+# For a real domain + HTTPS, replace :80 with your hostname, e.g.:
+#   ptn.example.com {
+#     ...
+#   }
+# Caddy will then obtain a certificate automatically.
+
+:80 {
+	handle /api* {
+		reverse_proxy backend:8000
+	}
+
+	handle /health {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		reverse_proxy frontend:3000
+	}
+}
